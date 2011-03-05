@@ -1,0 +1,22 @@
+header
+  h1 Blinds - A Riak Web Client
+section.options
+  h4 Options
+  form
+    fieldset
+      label Buckets
+      input(type="text",name="bucket",id="bucket")
+    fieldset
+      input(type="submit",value="Set")
+section.content
+  h4 Contents
+  .table
+    table
+      thead
+        tr
+          td Key
+          td vclock
+      tbody
+  .doc
+    textarea#doc(disabled="true")
+    button(disabled="true") Submit Changes

@@ -1,0 +1,5 @@
+body,div,h1,h2,h3,h4,h5,h6,p,form,fieldset,img,ol,ul,li{
+    padding:0;margin:0;border:0;
+}
+li{list-style:none;}
+a{text-decoration:none;}
