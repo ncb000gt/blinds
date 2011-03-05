@@ -37,4 +37,6 @@ app.get(/.*/, function(req, res) {
     res.render('main', {});
 });
 
-app.listen(3000);
+app.listen(5000);
+
+console.log('Blinds have been opened.');
