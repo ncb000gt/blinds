@@ -1,14 +1,19 @@
 $(document).ready(function() {
     var bucket_name,
+        current_doc,
         _bucket = {};
+    function setDocData(data) {
+        var doc = $("#doc");
+        doc.val(JSON.stringify(data));
+        doc.attr({disabled:false});
+    }
     function docDetails() {
         var id = $(this).attr('id');
-        var doc = $("#doc");
         $.get('/getDoc',
             {bucket: bucket_name, doc_id: id},
             function(data) {
-                doc.val(JSON.stringify(data));
-                doc.attr({disabled:false});
+                current_doc = data;
+                setDocData(data);
             },
             'json');
     }
@@ -42,7 +47,10 @@ $(document).ready(function() {
         doc.attr({disabled:true});
         $('.doc button').attr({disabled:true});
     }
-    $('.doc button').click(function(e) {
+    $('#reset').click(function() {
+        setDocData(current_doc);
+    });
+    $('#save').click(function(e) {
         e.preventDefault();
         var doc = $('#doc');
         if (doc.val()) {
@@ -54,22 +62,26 @@ $(document).ready(function() {
             'json');
         }
     });
-    $('#doc').keypress(function() {
+    $('#doc').keydown(function() {
         $('.doc button').attr({disabled:false});
     });
     $('.options form').submit(function(e) {
         e.preventDefault();
         var fields = $('#fields').val();
         bucket_name = $('.options #bucket').val();
+        var params = {bucket: bucket_name};
+        if (fields) {
+            params.fields = fields;
+        }
         $.get('/getBucket',
-            {bucket: bucket_name, fields: fields},
+            params,
             function(data) {
                 _bucket = {};
                 $.each(data.rows, function(idx, row) {
                     _bucket[row.meta.key] = row;
                 });
                 resetDetails();
-                showBucket(fields.split(','), _bucket);
+                showBucket((fields?fields.split(','):[]), _bucket);
             },
             'json');
     });

@@ -1,33 +1,35 @@
+/*
+ * Color concepts taken from http://veerle.duoh.com/
+ * Table design from http://www.smashingmagazine.com/2008/08/13/top-10-css-table-designs/
+ * Design still looks great (minimalist scales?)
+ */
+body{background:#727268;color:#4B4C41;}
 .contents{overflow:hidden;}
 section.options form{overflow:hidden;}
 section.options fieldset{float:left;}
-section.content{}
 section.content .table,section.content #doc{height:400px;width:100%;}
-/*section.content .table{overflow:scroll;}*/
-
 table
 {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-	font-size: 12px;
-	background: #fff;
+	font-size: 14px;
 	width: 100%;
 	border-collapse: collapse;
 	text-align: left;
 }
 table th
 {
-	font-size: 14px;
-	font-weight: normal;
-	color: #039;
+	font-size: 18px;
+	font-weight: bold;
+	color: #fff;
 	padding: 10px 8px;
-	border-bottom: 2px solid #6678b1;
+	border-bottom: 2px solid #fff;
 }
 table td
 {
-	color: #669;
+	color: #fff;
 	padding: 9px 8px 0px 8px;
 }
 table tbody tr:hover td
 {
-	color: #009;
+	color: #D3D2C4;
 }
