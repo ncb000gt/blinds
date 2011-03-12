@@ -43,7 +43,6 @@ app.get(/getBucket.*/, function(req, res) {
         start = (req.query.start?parseInt(req.query.start):0),
         size = (req.query.size?parseInt(req.query.size):0),
         fields = (req.query.fields?req.query.fields.split(','):[]);
-        console.log('fields: ' + fields);
     db.getAll(bucket, function(err, rows) {
         res.send(
             {

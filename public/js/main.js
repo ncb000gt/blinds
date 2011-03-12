@@ -15,9 +15,9 @@ $(document).ready(function() {
     function showBucket(fields, bucket) {
         var thead = $('.content thead');
         thead.empty();
-        var head_tr = $('<tr><td>Key</td></tr>');
+        var head_tr = $('<tr><th>Key</th></tr>');
         for (var i = 0; i < fields.length; i++) {
-            head_tr.append('<td>'+fields[i]+'</td>');
+            head_tr.append('<th>'+fields[i]+'</th>');
         }
         thead.append(head_tr);
         var tbody = $('.content tbody');
@@ -25,9 +25,13 @@ $(document).ready(function() {
         $.each(Object.keys(bucket), function(idx, rowKey) {
             var row = bucket[rowKey];
             var tr = $('<tr id="'+row.meta.key+'" style="cursor: pointer;"><td>'+row.meta.key+'</td></tr>');
-            for (var p in row.data) {
-                tr.append('<td>'+row.data[p]+'</td>');
-            }
+            $.each(fields, function(idx2, field) {
+                var content = row.data[field];
+                if (content.length > 300) {
+                    content = content.substring(0, 300) + '...';
+                }
+                tr.append('<td>'+content+'</td>');
+            });
             tr.click(docDetails);
             tbody.append(tr);
         });

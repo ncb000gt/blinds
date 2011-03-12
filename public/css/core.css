@@ -3,4 +3,31 @@ section.options form{overflow:hidden;}
 section.options fieldset{float:left;}
 section.content{}
 section.content .table,section.content #doc{height:400px;width:100%;}
-section.content .table{overflow:scroll;}
+/*section.content .table{overflow:scroll;}*/
+
+table
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	background: #fff;
+	width: 100%;
+	border-collapse: collapse;
+	text-align: left;
+}
+table th
+{
+	font-size: 14px;
+	font-weight: normal;
+	color: #039;
+	padding: 10px 8px;
+	border-bottom: 2px solid #6678b1;
+}
+table td
+{
+	color: #669;
+	padding: 9px 8px 0px 8px;
+}
+table tbody tr:hover td
+{
+	color: #009;
+}
