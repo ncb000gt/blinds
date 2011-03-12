@@ -7,7 +7,8 @@ body{background:#727268;color:#4B4C41;}
 .contents{overflow:hidden;}
 section.options form{overflow:hidden;}
 section.options fieldset{float:left;}
-section.content .table,section.content #doc{height:400px;width:100%;}
+section.content table,section.content #doc{height:400px;width:100%;}
+.scrollable{overflow:auto;height:385px;width:100%;display:block;}
 table
 {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
@@ -29,7 +30,7 @@ table td
 	color: #fff;
 	padding: 9px 8px 0px 8px;
 }
-table tbody tr:hover td
+table.inner tbody tr:hover td
 {
 	color: #D3D2C4;
 }

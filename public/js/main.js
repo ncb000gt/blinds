@@ -25,7 +25,7 @@ $(document).ready(function() {
             head_tr.append('<th>'+fields[i]+'</th>');
         }
         thead.append(head_tr);
-        var tbody = $('.content tbody');
+        var tbody = $('tbody');
         tbody.empty();
         $.each(Object.keys(bucket), function(idx, rowKey) {
             var row = bucket[rowKey];
