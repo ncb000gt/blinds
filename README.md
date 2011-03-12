@@ -13,9 +13,9 @@ Installation
 * Install [NodeJS](http://www.nodejs.org) 0.4.x
 * Install [NPM](http://www.npmjs.org)
 * Install [Jade](http://jade-lang.com), [Express](http://expressjs.com) and [Riak-JS](http://www.riakjs.com)
- * `sudo npm install jade express riak-js`
+  * `sudo npm install jade express riak-js`
 * Clone Blinds
- * `git clone git://github.com/ncb000gt/blinds.git`
+  * `git clone git://github.com/ncb000gt/blinds.git`
 
 
 Usage
