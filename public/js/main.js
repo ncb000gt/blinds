@@ -1,17 +1,33 @@
 $(document).ready(function() {
-    var _bucket = {};
+    var bucket_name,
+        _bucket = {};
     function docDetails() {
         var id = $(this).attr('id');
         var doc = $("#doc");
-        doc.val(JSON.stringify(_bucket[id]));
-        doc.attr({disabled:false});
+        $.get('/getDoc',
+            {bucket: bucket_name, doc_id: id},
+            function(data) {
+                doc.val(JSON.stringify(data));
+                doc.attr({disabled:false});
+            },
+            'json');
     }
-    function showBucket(bucket) {
+    function showBucket(fields, bucket) {
+        var thead = $('.content thead');
+        thead.empty();
+        var head_tr = $('<tr><td>Key</td></tr>');
+        for (var i = 0; i < fields.length; i++) {
+            head_tr.append('<td>'+fields[i]+'</td>');
+        }
+        thead.append(head_tr);
         var tbody = $('.content tbody');
         tbody.empty();
         $.each(Object.keys(bucket), function(idx, rowKey) {
             var row = bucket[rowKey];
-            var tr = $('<tr id="'+row.meta.key+'" style="cursor: pointer;"><td>'+row.meta.key+'</td><td>'+row.meta.vclock+'</td></tr>');
+            var tr = $('<tr id="'+row.meta.key+'" style="cursor: pointer;"><td>'+row.meta.key+'</td></tr>');
+            for (var p in row.data) {
+                tr.append('<td>'+row.data[p]+'</td>');
+            }
             tr.click(docDetails);
             tbody.append(tr);
         });
@@ -39,15 +55,17 @@ $(document).ready(function() {
     });
     $('.options form').submit(function(e) {
         e.preventDefault();
+        var fields = $('#fields').val();
+        bucket_name = $('.options #bucket').val();
         $.get('/getBucket',
-            {bucket: $('.options #bucket').val()},
+            {bucket: bucket_name, fields: fields},
             function(data) {
                 _bucket = {};
                 $.each(data.rows, function(idx, row) {
                     _bucket[row.meta.key] = row;
                 });
                 resetDetails();
-                showBucket(_bucket);
+                showBucket(fields.split(','), _bucket);
             },
             'json');
     });

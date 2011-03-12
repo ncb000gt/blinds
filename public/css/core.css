@@ -1,5 +1,6 @@
 .contents{overflow:hidden;}
-section.options{width:25%;float:left;}
-section.content{width:75%;float:left;}
-section.content .table,section.content #doc{height:400px;width:600px}
+section.options form{overflow:hidden;}
+section.options fieldset{float:left;}
+section.content{}
+section.content .table,section.content #doc{height:400px;width:100%;}
 section.content .table{overflow:scroll;}

@@ -7,6 +7,9 @@ section.options
       label Buckets
       input(type="text",name="bucket",id="bucket")
     fieldset
+      label Fields (to show in table)
+      input(type="text",name="fields",id="fields")
+    fieldset
       input(type="submit",value="Set")
 section.content
   h4 Contents
@@ -15,7 +18,6 @@ section.content
       thead
         tr
           td Key
-          td vclock
       tbody
   .doc
     textarea#doc(disabled="true")

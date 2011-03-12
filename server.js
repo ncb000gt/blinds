@@ -27,15 +27,47 @@ app.post(/saveDoc/, function(req, res) {
         res.send({err: err, success: !(err)});
     });
 });
+app.get(/getDoc.*/, function(req, res) {
+    var doc_id = req.query.doc_id,
+        bucket = req.query.bucket;
+    if (!doc_id) {
+        res.send({success: false, message: 'No document id.'});
+    } else {
+        db.get(bucket, doc_id, function(err, doc, meta) {
+            res.send({data: doc, meta: meta});
+        });
+    }
+});
 app.get(/getBucket.*/, function(req, res) {
-    var bucket = req.query.bucket || '';
+    var bucket = req.query.bucket || '',
+        start = (req.query.start?parseInt(req.query.start):0),
+        size = (req.query.size?parseInt(req.query.size):0),
+        fields = (req.query.fields?req.query.fields.split(','):[]);
+        console.log('fields: ' + fields);
     db.getAll(bucket, function(err, rows) {
-        res.send({rows: rows});
+        res.send(
+            {
+                rows: ((fields.length > 0)?rows.map(function(row) {
+                    var data = row.data;
+                    return {meta: row.meta, data: filterProperties(row.data, fields)};
+                }):rows)
+            }
+        );
     });
 });
 app.get(/.*/, function(req, res) {
     res.render('main', {});
 });
+
+var filterProperties = function(o, fields) {
+    var new_obj = {};
+    Object.keys(o).forEach(function(property) {
+        if (fields.indexOf(property) >= 0) {
+            new_obj[property] = o[property];
+        }
+    });
+    return new_obj;
+}
 
 app.listen(5000);
 
