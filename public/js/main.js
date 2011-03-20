@@ -16,6 +16,7 @@ $(document).ready(function() {
                 setDocData(data);
             },
             'json');
+        $('#delete').attr({disabled: false});
     }
     function showBucket(fields, bucket) {
         var thead = $('.content thead');
@@ -47,6 +48,14 @@ $(document).ready(function() {
         doc.attr({disabled:true});
         $('.doc button').attr({disabled:true});
     }
+    $('#delete').click(function() {
+        $.get('/deleteDoc',
+            {bucket: bucket_name, doc_id: current_doc.meta.key},
+            function(data) {
+                setupTable();
+            },
+            'json');
+    });
     $('#reset').click(function() {
         setDocData(current_doc);
     });
@@ -67,6 +76,10 @@ $(document).ready(function() {
     });
     $('.options form').submit(function(e) {
         e.preventDefault();
+
+        setupTable();
+    });
+    function setupTable() {
         var fields = $('#fields').val();
         bucket_name = $('.options #bucket').val();
         var params = {bucket: bucket_name};
@@ -84,5 +97,5 @@ $(document).ready(function() {
                 showBucket((fields?fields.split(','):[]), _bucket);
             },
             'json');
-    });
+    }
 });

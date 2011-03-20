@@ -2,7 +2,7 @@ var express = require('express'),
     fs = require('fs'),
     util = require('util'),
     riak = require('riak-js'),
-    db = riak.getClient();
+    db = riak.getClient({debug:false, clientId: 'blinds'});
 
 var LOG_PATH = '/var/log/blinds.log',
 logStream = fs.createWriteStream(LOG_PATH);
@@ -18,6 +18,18 @@ app.configure(function() {
     app.use(express.session({secret: 'blinds riak client interface'}));    
 });
 
+app.get(/deleteDoc/, function(req, res) {
+    var bucket = req.query.bucket || '',
+        doc_id = req.query.doc_id || '';
+
+    if (!doc_id || !bucket) {
+        res.send({success: false, message: 'Fill out the information.'});
+    } else {
+        db.remove(bucket, doc_id, function(err) {
+            res.send({});
+        }); 
+    }
+});
 app.post(/saveDoc/, function(req, res) {
     var bucket = req.query.bucket || '';
     var bdoc = JSON.parse(req.body.doc),
