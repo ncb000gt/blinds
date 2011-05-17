@@ -5,6 +5,12 @@ Blinds is simply a web frontend to Riak. I had tried to use others to inspect ob
 
 For now, enjoy the ugly.
 
+
+# NOTICE #
+
+This project is no longer supported. Rekon is ultimately what this project aimed to be. Check it out (https://github.com/adamhunter/rekon). Use it. Love it. <3
+
+
 Features
 ========
 
